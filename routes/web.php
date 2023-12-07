@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DepartamentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +35,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //RUTA PARA DEPARTAMENTOS
+    Route::resource('departaments', DepartamentController::class);
+    //RUTA EMPLEADOS
+    Route::resource('employees', EmployeeController::class);
+    //RUTA PARA OBTENER LOS DATOS
+    Route::get('graphic', [EmployeeController::class, 'graphic'])->name('employees.graphic');
+    Route::get('reports', [EmployeeController::class, 'reports'])->name('employees.reports');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

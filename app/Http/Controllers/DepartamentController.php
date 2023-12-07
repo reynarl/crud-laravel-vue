@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Departament;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DepartamentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $departaments = Departament::all();
+        return Inertia::render('Departaments/Index', ['departaments' => $departaments]);
     }
 
     /**
@@ -20,7 +19,7 @@ class DepartamentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Departaments/Create');
     }
 
     /**
@@ -28,7 +27,11 @@ class DepartamentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|max:100']);
+        // $departament = new Departament($request->input());
+        // $departament->save();
+        Departament::create($request->all());
+        return Inertia::render('departaments');
     }
 
     /**
@@ -36,7 +39,7 @@ class DepartamentController extends Controller
      */
     public function show(Departament $departament)
     {
-        //
+        // return Inertia::render('Departaments/Show', ['departament' => $departament]);
     }
 
     /**
@@ -44,7 +47,7 @@ class DepartamentController extends Controller
      */
     public function edit(Departament $departament)
     {
-        //
+        return Inertia::render('Departaments/Edit', ['departament' => $departament]);
     }
 
     /**
@@ -52,7 +55,10 @@ class DepartamentController extends Controller
      */
     public function update(Request $request, Departament $departament)
     {
-        //
+        $request->validate(['name' => 'required|max:100']);
+        $departament->update($request->all());
+        return redirect('departaments.index');
+        // return redirect('departaments');
     }
 
     /**
@@ -60,6 +66,8 @@ class DepartamentController extends Controller
      */
     public function destroy(Departament $departament)
     {
-        //
+        $departament->delete();
+        return redirect('departments.index');
+        // return redirect('departaments');
     }
 }
