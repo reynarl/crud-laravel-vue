@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Departament>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
  */
-class DepartamentFactory extends Factory
+class EmployeeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class DepartamentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->jobTitle()
+            //
         ];
     }
 }
