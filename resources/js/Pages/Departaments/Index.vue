@@ -37,8 +37,8 @@ const deleteDepartmentModal = (department) => {
 
         <div class="py-12">
             <div class="grid bg-white v-screen place-items-center">
-                <div class="bg-green-600 rounded-md px-2 py-2 text-white">
-                    <Link :href="route('departaments.create')">Add</Link>
+                <div class="bg-green-600 rounded-md px-2 py-2 mt-4 text-white">
+                    <Link :href="route('departaments.create')" class="px-10">Add</Link>
                 </div>
                 <div>
                 <table class="table-auto border border-gray-400 mt-4">
@@ -53,7 +53,7 @@ const deleteDepartmentModal = (department) => {
                         <tr v-for="departament, index in departaments" :key="departament.id">
                             <td class="border border-gray-400 px-4 py-4">{{ index +1 }}</td>
                             <td class="border border-gray-400 px-4 py-4">{{ departament.name }}</td>
-                            <td class="border border-gray-400 px-4 py-4"><Link :href="route('departaments.edit', departament)">Editar</Link></td>
+                            <td class="border border-gray-400 px-4 py-4"><Link :href="route('departaments.edit', departament)">Edit</Link></td>
                             <td class="border border-gray-400 px-4 py-4"><button @click="deleteDepartmentModal(departament)">Delete</button></td>
                         </tr>
                     </tbody>

@@ -31,7 +31,7 @@ class DepartamentController extends Controller
         // $departament = new Departament($request->input());
         // $departament->save();
         Departament::create($request->all());
-        return Inertia::render('departaments');
+        return redirect('departaments');
     }
 
     /**
@@ -57,7 +57,7 @@ class DepartamentController extends Controller
     {
         $request->validate(['name' => 'required|max:100']);
         $departament->update($request->all());
-        return redirect('departaments.index');
+        return redirect('departaments');
         // return redirect('departaments');
     }
 
@@ -67,7 +67,6 @@ class DepartamentController extends Controller
     public function destroy(Departament $departament)
     {
         $departament->delete();
-        return redirect('departments.index');
-        // return redirect('departaments');
+        return redirect(route('departaments.index'));
     }
 }
