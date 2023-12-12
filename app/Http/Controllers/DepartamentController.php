@@ -31,7 +31,8 @@ class DepartamentController extends Controller
         // $departament = new Departament($request->input());
         // $departament->save();
         Departament::create($request->all());
-        return redirect('departaments');
+        // return redirect('departaments');
+        return redirect(route('departaments.index'));
     }
 
     /**

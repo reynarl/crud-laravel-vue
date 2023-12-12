@@ -21,7 +21,7 @@ const nameInput = ref(null)
 const modal = ref(false)
 const title = ref('')
 const operation = ref(1)
-const id = ref('')
+const employeeId = ref('')
 
 const form = useForm({
     name:'', email:'', phone:'', departament_id:''
@@ -34,19 +34,19 @@ const onPageClick = e => {
     formPage.get(route('employees.index',{page:e}))
 }
 
-const openModal = (op, name,email,phone,departament,employee) => {
+const openModal = (op, employee) => {
     modal.value = true
     nextTick(() => nameInput.value.focus)
     operation.value = op
-    id.value = employee
     if(op === 1){
         title.value = 'Create employee'
     }else {
+        employeeId.value = employee
         title.value = 'Edit Employee'
-        form.name = name
-        form.email = email
-        form.phone = phone
-        form.departament_id = departament
+        form.name = employee.name
+        form.email = employee.email
+        form.phone = employee.phone
+        form.departament_id = employee.departament_id
 
     }
 }
@@ -63,12 +63,13 @@ const ok = (msg) => {
 }
 
 const save = () => {
+    // console.log(departament_id);
     if(operation.value === 1){
         form.post(route('employees.store'), {
             onSuccess: () => ok('Employee created')
         })
     } else {
-        form.put(route('employees.update', id, value), {
+        form.put(route('employees.update', employeeId.value), {
             onSuccess: () => ok('Employee updated')
         })
     }
@@ -124,6 +125,9 @@ const deleteEmployeeModal = (employee) => {
                                     <td class="border border-gray-400 px-4 py-4">{{ employee.email }}</td>
                                     <td class="border border-gray-400 px-4 py-4">{{ employee.phone }}</td>
                                     <td class="border border-gray-400 px-4 py-4">
+                                        <button class="bg-blue-500 rounded-lg text-white px-2" @click="openModal(2, employee)">Edit</button>
+                                    </td>
+                                    <td class="border border-gray-400 px-4 py-4">
                                         <button class="bg-red-700 rounded-lg text-white px-2" @click="deleteEmployeeModal(employee)">Delete</button>
                                     </td>
                                 </tr>
@@ -158,9 +162,9 @@ const deleteEmployeeModal = (employee) => {
                     <InputError :message="form.errors.email" />
                 </div>
                 <div class="p-3">
-                    <InputLabel for="demartament_id" value="Departments:" />
+                    <InputLabel for="departament_id" value="Departments:" />
                     <SelectInput class="w-96" id="departament_id" v-model="form.departament_id" :options="departaments"></SelectInput>
-                    <InputError :message="form.errors.demartament_id" />
+                    <InputError :message="form.errors.departament_id" />
                 </div>
             </div>
             <div class="w-60 mt-3 p-3 flex justify-between m-auto">
